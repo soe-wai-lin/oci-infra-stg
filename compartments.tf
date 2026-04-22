@@ -4,7 +4,7 @@ resource "oci_identity_compartment" "net_compartment" {
   description    = var.net_compartment_description
   name           = var.net_comp
   enable_delete  = false ## if you destroy, this compartment name will not be delete.
-  # freeform_tags  = var.freeform_tags
+  freeform_tags  = var.freeform_tags
 }
 
 resource "oci_identity_compartment" "app_compartment" {
@@ -13,7 +13,7 @@ resource "oci_identity_compartment" "app_compartment" {
   description    = var.app_compartment_description
   name           = var.app_comp
   enable_delete  = false ## if you destroy, this compartment name will not be delete.
-  # freeform_tags  = var.freeform_tags
+  freeform_tags  = var.freeform_tags
 }
 
 resource "oci_identity_compartment" "data_compartment" {
@@ -22,7 +22,7 @@ resource "oci_identity_compartment" "data_compartment" {
   description    = var.data_compartment_description
   name           = var.data_comp
   enable_delete  = false ## if you destroy, this compartment name will not be delete.
-  # freeform_tags  = var.freeform_tags
+  freeform_tags  = var.freeform_tags
 }
 
 resource "oci_identity_compartment" "mgmt_compartment" {
@@ -31,5 +31,5 @@ resource "oci_identity_compartment" "mgmt_compartment" {
   description    = var.mgmt_compartment_description
   name           = var.mgmt_comp
   enable_delete  = false ## if you destroy, this compartment name will not be delete.
-  # freeform_tags  = var.freeform_tags
+  freeform_tags  = var.freeform_tags
 }

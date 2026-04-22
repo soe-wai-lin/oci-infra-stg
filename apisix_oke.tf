@@ -142,13 +142,9 @@
 
 #   initial_node_labels {
 #     key = "name"
-#     value = "abdigital-prod-pool-system"
+#     value = "abdigital-stg-pool-system"
 #   }
 
-#   initial_node_labels {
-#     key = "nodepool-role"
-#     value = "system"
-#   }
 
 #   # Rolling replacement / safer maintenance behavior.
 #   node_eviction_node_pool_settings {
@@ -227,7 +223,7 @@
 
 #   initial_node_labels {
 #     key = "name"
-#     value = "abdigital-prod-pool-app"
+#     value = "abdigital-stg-pool-app"
 #   }
 
 #   # Rolling replacement / safer maintenance behavior.
