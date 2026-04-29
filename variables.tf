@@ -204,7 +204,7 @@ variable "service_gateway_display_name" {
 variable "redis_display_name" {
   description = "Display name for the Redis cluster."
   type        = string
-  default = "stg-prod-redis"
+  default = "stg-redis"
 }
 
 variable "software_version" {
@@ -289,7 +289,7 @@ variable "auto_tiering" {
 variable "versioning" {
   description = "Enable object versioning on the bucket: Enabled or Disabled."
   type        = string
-  default     = "Enabled"
+  default     = "Disabled"
 
   validation {
     condition     = contains(["Enabled", "Disabled"], var.versioning)
