@@ -1099,7 +1099,7 @@ jobs:
         run: |
           set -euo pipefail
 
-          BASTION_PUBLIC_IP=$(jq -r '.data.items[] | select(."output-name"=="bastion_public_ip") | ."output-value"' rm_outputs.json)
+          BASTION_PUBLIC_IP=$(jq -r '.data.items[] | select(."output-name"=="stg_bastion_public_ip") | ."output-value"' rm_outputs.json)
           STG_OKE_CLUSTER_OCID=$(jq -r '.data.items[] | select(."output-name"=="airs_oke_cluster_ocid") | ."output-value"' rm_outputs.json)
           LB_SUBNET_OCID=$(jq -r '.data.items[] | select(."output-name"=="stg_lb_subnet_ocid") | ."output-value"' rm_outputs.json)
           LB_NSG_OCID=$(jq -r '.data.items[] | select(."output-name"=="stg_lb_nsg_ocid") | ."output-value"' rm_outputs.json)
