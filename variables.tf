@@ -261,7 +261,7 @@ variable "bucket_name" {
 variable "access_type" {
   description = "Bucket public access type: NoPublicAccess, ObjectRead, or ObjectReadWithoutList."
   type        = string
-  default     = "NoPublicAccess"
+  default     = "ObjectRead"
 
   validation {
     condition     = contains(["NoPublicAccess", "ObjectRead", "ObjectReadWithoutList"], var.access_type)
