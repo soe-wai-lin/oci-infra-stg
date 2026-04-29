@@ -277,6 +277,10 @@ output "stg_lb_nsg_ocid" {
 output "stg_bastion_public_ip" {
   value = oci_core_instance.bastion.public_ip
 }
+output "stg_lb_reserved_public_ip_ocid" {
+  description = "AIRS Reserved public IP OCID for the OKE load balancer"
+  value       = oci_core_public_ip.airs_cluster_lb_reserved_ip.ip_address
+}
 # # output "cms_oke_cluster_ocid" {
 # #   description = "CMS OKE cluster OCID"
 # #   value       = oci_containerengine_cluster.cms_oke.id
@@ -308,10 +312,10 @@ output "stg_bastion_public_ip" {
 # #   value       = oci_core_public_ip.cms_cluster_lb_reserved_ip.ip_address
 # # }
 
-# # output "pre_prod_airs_lb_reserved_public_ip_ocid" {
-# #   description = "AIRS Reserved public IP OCID for the OKE load balancer"
-# #   value       = oci_core_public_ip.airs_cluster_lb_reserved_ip.ip_address
-# # }
+output "pre_prod_airs_lb_reserved_public_ip_ocid" {
+  description = "AIRS Reserved public IP OCID for the OKE load balancer"
+  value       = oci_core_public_ip.airs_cluster_lb_reserved_ip.ip_address
+}
 
 # output "stg_apisix_lb_reserved_public_ip_ocid" {
 #   description = "AIRS Reserved public IP OCID for the OKE load balancer"
