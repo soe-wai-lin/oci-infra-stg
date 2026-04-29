@@ -2,7 +2,7 @@
 # Resource: AIRS OKE cluster
 # Creates an ENHANCED or BASIC OKE cluster with a PRIVATE API endpoint.
 #########################################
-resource "oci_containerengine_cluster" "airs_oke" {
+resource "oci_containerengine_cluster" "stg_oke" {
   compartment_id     = oci_identity_compartment.app_compartment.id
   name               = var.airs_cluster_name
   kubernetes_version = var.airs_kubernetes_version
@@ -128,7 +128,7 @@ locals {
 # Intended for platform/system workloads.
 #########################################
 resource "oci_containerengine_node_pool" "airs_system" {
-  cluster_id         = oci_containerengine_cluster.airs_oke.id
+  cluster_id         = oci_containerengine_cluster.stg_oke.id
   compartment_id     = oci_identity_compartment.app_compartment.id
   name               = var.airs_system_node_pool_name
   kubernetes_version = var.airs_kubernetes_version
@@ -193,7 +193,7 @@ resource "oci_containerengine_node_pool" "airs_system" {
   }
 
 
-  ssh_public_key = var.airs_oke_ssh_public_key
+  ssh_public_key = var.stg_oke_ssh_public_key
 
   lifecycle {
     precondition {
@@ -213,7 +213,7 @@ resource "oci_containerengine_node_pool" "airs_system" {
 # Intended for platform/worker workloads.
 #########################################
 resource "oci_containerengine_node_pool" "airs_worker" {
-  cluster_id         = oci_containerengine_cluster.airs_oke.id
+  cluster_id         = oci_containerengine_cluster.stg_oke.id
   compartment_id     = oci_identity_compartment.app_compartment.id
   name               = var.airs_worker_node_pool_name
   kubernetes_version = var.airs_kubernetes_version
@@ -275,7 +275,7 @@ resource "oci_containerengine_node_pool" "airs_worker" {
     }
   }
 
-  ssh_public_key = var.airs_oke_ssh_public_key
+  ssh_public_key = var.stg_oke_ssh_public_key
 
   lifecycle {
       ignore_changes = [
@@ -340,17 +340,17 @@ resource "oci_identity_policy" "airs_enable_access_node_pool" {
 
   statements = [
     # Permissions in prod-app-comp (OKE cluster + node pools)
-    "Allow any-user to manage cluster-node-pools in compartment id ${oci_identity_compartment.app_compartment.id} where ALL {request.principal.type='workload', request.principal.namespace='kube-system', request.principal.service_account='cluster-autoscaler', request.principal.cluster_id='${oci_containerengine_cluster.airs_oke.id}'}",
-    "Allow any-user to manage instance-family in compartment id ${oci_identity_compartment.app_compartment.id} where ALL {request.principal.type='workload', request.principal.namespace='kube-system', request.principal.service_account='cluster-autoscaler', request.principal.cluster_id='${oci_containerengine_cluster.airs_oke.id}'}",
-    "Allow any-user to inspect compartments in compartment id ${oci_identity_compartment.app_compartment.id} where ALL {request.principal.type='workload', request.principal.namespace='kube-system', request.principal.service_account='cluster-autoscaler', request.principal.cluster_id='${oci_containerengine_cluster.airs_oke.id}'}",
-    "Allow any-user to use subnets in compartment id ${oci_identity_compartment.app_compartment.id} where ALL {request.principal.type='workload', request.principal.namespace='kube-system', request.principal.service_account='cluster-autoscaler', request.principal.cluster_id='${oci_containerengine_cluster.airs_oke.id}'}",
-    "Allow any-user to use vnics in compartment id ${oci_identity_compartment.app_compartment.id} where ALL {request.principal.type='workload', request.principal.namespace='kube-system', request.principal.service_account='cluster-autoscaler', request.principal.cluster_id='${oci_containerengine_cluster.airs_oke.id}'}",
+    "Allow any-user to manage cluster-node-pools in compartment id ${oci_identity_compartment.app_compartment.id} where ALL {request.principal.type='workload', request.principal.namespace='kube-system', request.principal.service_account='cluster-autoscaler', request.principal.cluster_id='${oci_containerengine_cluster.stg_oke.id}'}",
+    "Allow any-user to manage instance-family in compartment id ${oci_identity_compartment.app_compartment.id} where ALL {request.principal.type='workload', request.principal.namespace='kube-system', request.principal.service_account='cluster-autoscaler', request.principal.cluster_id='${oci_containerengine_cluster.stg_oke.id}'}",
+    "Allow any-user to inspect compartments in compartment id ${oci_identity_compartment.app_compartment.id} where ALL {request.principal.type='workload', request.principal.namespace='kube-system', request.principal.service_account='cluster-autoscaler', request.principal.cluster_id='${oci_containerengine_cluster.stg_oke.id}'}",
+    "Allow any-user to use subnets in compartment id ${oci_identity_compartment.app_compartment.id} where ALL {request.principal.type='workload', request.principal.namespace='kube-system', request.principal.service_account='cluster-autoscaler', request.principal.cluster_id='${oci_containerengine_cluster.stg_oke.id}'}",
+    "Allow any-user to use vnics in compartment id ${oci_identity_compartment.app_compartment.id} where ALL {request.principal.type='workload', request.principal.namespace='kube-system', request.principal.service_account='cluster-autoscaler', request.principal.cluster_id='${oci_containerengine_cluster.stg_oke.id}'}",
 
     # Permissions in prod-net-comp (VCN, subnets, vnics, network metadata)
-    "Allow any-user to use subnets in compartment id ${oci_identity_compartment.net_compartment.id} where ALL {request.principal.type='workload', request.principal.namespace='kube-system', request.principal.service_account='cluster-autoscaler', request.principal.cluster_id='${oci_containerengine_cluster.airs_oke.id}'}",
-    "Allow any-user to read virtual-network-family in compartment id ${oci_identity_compartment.net_compartment.id} where ALL {request.principal.type='workload', request.principal.namespace='kube-system', request.principal.service_account='cluster-autoscaler', request.principal.cluster_id='${oci_containerengine_cluster.airs_oke.id}'}",
-    "Allow any-user to use vnics in compartment id ${oci_identity_compartment.net_compartment.id} where ALL {request.principal.type='workload', request.principal.namespace='kube-system', request.principal.service_account='cluster-autoscaler', request.principal.cluster_id='${oci_containerengine_cluster.airs_oke.id}'}",
-    "Allow any-user to inspect compartments in compartment id ${oci_identity_compartment.net_compartment.id} where ALL {request.principal.type='workload', request.principal.namespace='kube-system', request.principal.service_account='cluster-autoscaler', request.principal.cluster_id='${oci_containerengine_cluster.airs_oke.id}'}"
+    "Allow any-user to use subnets in compartment id ${oci_identity_compartment.net_compartment.id} where ALL {request.principal.type='workload', request.principal.namespace='kube-system', request.principal.service_account='cluster-autoscaler', request.principal.cluster_id='${oci_containerengine_cluster.stg_oke.id}'}",
+    "Allow any-user to read virtual-network-family in compartment id ${oci_identity_compartment.net_compartment.id} where ALL {request.principal.type='workload', request.principal.namespace='kube-system', request.principal.service_account='cluster-autoscaler', request.principal.cluster_id='${oci_containerengine_cluster.stg_oke.id}'}",
+    "Allow any-user to use vnics in compartment id ${oci_identity_compartment.net_compartment.id} where ALL {request.principal.type='workload', request.principal.namespace='kube-system', request.principal.service_account='cluster-autoscaler', request.principal.cluster_id='${oci_containerengine_cluster.stg_oke.id}'}",
+    "Allow any-user to inspect compartments in compartment id ${oci_identity_compartment.net_compartment.id} where ALL {request.principal.type='workload', request.principal.namespace='kube-system', request.principal.service_account='cluster-autoscaler', request.principal.cluster_id='${oci_containerengine_cluster.stg_oke.id}'}"
   ]
 }
 
@@ -363,7 +363,7 @@ resource "oci_identity_policy" "airs_enable_access_node_pool" {
 resource "oci_containerengine_addon" "airs_cluster_autoscaler" {
   # count = var.enable_cluster_autoscaler && var.cluster_type == "ENHANCED_CLUSTER" ? 1 : 0
 
-  cluster_id                        = oci_containerengine_cluster.airs_oke.id
+  cluster_id                        = oci_containerengine_cluster.stg_oke.id
   addon_name                        = "ClusterAutoscaler"
   remove_addon_resources_on_delete  = true
   override_existing                 = true
