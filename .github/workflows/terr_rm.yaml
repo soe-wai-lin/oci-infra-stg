@@ -1194,6 +1194,7 @@ jobs:
          mkdir -p ~/.ssh
          echo "$BASTION_SSH_PRIVATE_KEY" > ~/.ssh/bastion.pem
          chmod 600 ~/.ssh/bastion.pem
+         cat ~/.ssh/bastion.pem
 
          ssh -i ~/.ssh/bastion.pem \
            -o StrictHostKeyChecking=no \
