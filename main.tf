@@ -1138,7 +1138,7 @@ resource "oci_core_public_ip" "airs_cluster_lb_reserved_ip" {
   }
 
 
-  display_name  = "${var.vcn_display_name}-airs-cluster-lb-reserved-ip"
+  display_name  = "${var.vcn_display_name}-stg-cluster-lb-reserved-ip"
   freeform_tags = var.freeform_tags
 }
 

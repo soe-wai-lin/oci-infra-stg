@@ -1114,10 +1114,10 @@ jobs:
           done
  
           echo "BASTION_PUBLIC_IP=${BASTION_PUBLIC_IP}" >> "$GITHUB_ENV"
-          echo "STG_OKE_CLUSTER_OCID=${WEB_OKE_CLUSTER_OCID}" >> "$GITHUB_ENV"
+          echo "STG_OKE_CLUSTER_OCID=${STG_OKE_CLUSTER_OCID}" >> "$GITHUB_ENV"
           echo "LB_SUBNET_OCID=${LB_SUBNET_OCID}" >> "$GITHUB_ENV"
           echo "LB_NSG_OCID=${LB_NSG_OCID}" >> "$GITHUB_ENV"
-          echo "LB_RESERVED_PUBLIC_IP_OCID=${AIRS_LB_RESERVED_PUBLIC_IP_OCID}" >> "$GITHUB_ENV"
+          echo "LB_RESERVED_PUBLIC_IP_OCID=${LB_RESERVED_PUBLIC_IP_OCID}" >> "$GITHUB_ENV"
 
 
       - name: Checkout repo
