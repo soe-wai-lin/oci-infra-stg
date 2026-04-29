@@ -118,44 +118,44 @@ output "redis_node_endpoints" {
 }
 
 
-# ##################
-# ##  Bucket      ##
-# ##################
+##################
+##  Bucket      ##
+##################
 
-# output "stg_namespace" {
-#   description = "Object Storage namespace used for the bucket."
-#   value       = data.oci_objectstorage_namespace.ns.namespace
-# }
+output "stg_namespace" {
+  description = "Object Storage namespace used for the bucket."
+  value       = data.oci_objectstorage_namespace.ns.namespace
+}
 
-# output "stg_bucket_name" {
-#   description = "Bucket name."
-#   value       = oci_objectstorage_bucket.bucket.name
-# }
+output "stg_bucket_name" {
+  description = "Bucket name."
+  value       = oci_objectstorage_bucket.bucket.name
+}
 
-# output "stg_bucket_id" {
-#   description = "Bucket identifier returned by OCI."
-#   value       = data.oci_objectstorage_bucket.bucket.bucket_id
-# }
+output "stg_bucket_id" {
+  description = "Bucket identifier returned by OCI."
+  value       = data.oci_objectstorage_bucket.bucket.bucket_id
+}
 
-# output "stg_bucket_access_type" {
-#   description = "Configured public access type."
-#   value       = data.oci_objectstorage_bucket.bucket.access_type
-# }
+output "stg_bucket_access_type" {
+  description = "Configured public access type."
+  value       = data.oci_objectstorage_bucket.bucket.access_type
+}
 
-# output "stg_bucket_storage_tier" {
-#   description = "Configured storage tier."
-#   value       = data.oci_objectstorage_bucket.bucket.storage_tier
-# }
+output "stg_bucket_storage_tier" {
+  description = "Configured storage tier."
+  value       = data.oci_objectstorage_bucket.bucket.storage_tier
+}
 
-# output "stg_bucket_versioning" {
-#   description = "Bucket versioning status."
-#   value       = data.oci_objectstorage_bucket.bucket.versioning
-# }
+output "stg_bucket_versioning" {
+  description = "Bucket versioning status."
+  value       = data.oci_objectstorage_bucket.bucket.versioning
+}
 
-# output "stg_bucket_approximate_size" {
-#   description = "Approximate total size in bytes of all objects in the bucket."
-#   value       = data.oci_objectstorage_bucket.bucket.approximate_size
-# }
+output "stg_bucket_approximate_size" {
+  description = "Approximate total size in bytes of all objects in the bucket."
+  value       = data.oci_objectstorage_bucket.bucket.approximate_size
+}
 
 # ##############
 # ### Vault  ###
